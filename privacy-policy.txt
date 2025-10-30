@@ -2,26 +2,28 @@ PRIVACY POLICY
 Aimi - AI Character Companion
 Developed by Chi-Lun Huang
 
-Effective Date: October 22, 2025
-Last Updated: October 22, 2025
+Effective Date: October 29, 2025
+Last Updated: October 29, 2025
 
 ================================================================================
 ⚠️ AGE RESTRICTION
 ================================================================================
 
-Aimi is intended for users aged 18 and older (rated 17+ on app stores, as
-this is the highest available rating). We do not knowingly collect information
-from individuals under 18 years of age. If you are under 18, please do not
-use this application.
+By using Aimi, you confirm that you are 18 years of age or older. Aimi is not
+intended for users under 18. We do not knowingly collect information from
+individuals under 18 years of age. If you are under 18, you must not use this
+application.
 
 ================================================================================
 INTRODUCTION
 ================================================================================
 
-Welcome to Aimi. This Privacy Policy explains how we collect, use, disclose,
-and safeguard your information when you use our mobile application ("App").
-Please read this privacy policy carefully. By using the App, you agree to
-the collection and use of information in accordance with this policy.
+Welcome to Aimi. Aimi is operated by Chi-Lun Huang, who is the data controller
+responsible for your personal information collected through this app. This
+Privacy Policy explains how we collect, use, disclose, and safeguard your
+information when you use our mobile application ("App"). Please read this
+privacy policy carefully. By using the App, you agree to the collection and
+use of information in accordance with this policy.
 
 ================================================================================
 1. INFORMATION WE COLLECT
@@ -30,12 +32,25 @@ the collection and use of information in accordance with this policy.
 We collect several types of information to provide and improve our service:
 
 1.1 ACCOUNT INFORMATION
-- Google Account Data: When you sign in with Google, we collect your email
-  address, name, and profile picture
-- Guest Identifiers: If you use the app without signing in, we generate a
-  unique guest ID
+- Google Account Data: When you sign in with Google, we collect:
+  * Email address
+  * Google User ID (unique identifier, also known as the "sub" claim in the
+    ID token)
+
+- Apple Account Data: When you sign in with Apple, we collect:
+  * Email address (which may be Apple's private relay email if you choose
+    "Hide My Email")
+  * Apple User ID (unique identifier, also known as the "sub" claim in the
+    ID token)
+
 - Device Information: Platform type (iOS/Android), app version, device
   identifiers
+
+- Push Notification Token (Optional): If you enable push notifications, we
+  may collect your Expo Push Token to send you notifications about new
+  messages, story updates, or important service announcements. This token is
+  stored only if you grant notification permissions and can be removed by
+  disabling notifications in your device settings.
 
 1.2 USER PROFILE & PREFERENCES
 - Language preference (English, Chinese, Japanese)
@@ -53,23 +68,38 @@ We collect several types of information to provide and improve our service:
   choices made and save game data
 
 1.4 VOICE & AUDIO DATA
-- Voice Input (LOCAL PROCESSING ONLY): When you use voice input, your voice
-  is processed locally on your device using built-in system speech recognition
-  (iOS/Android native). The audio recording is converted to text ON YOUR DEVICE
-  and is NOT uploaded to our servers. Only the resulting text message is sent
-  to our backend for AI processing.
+- Voice Input (Processed by Platform Provider): When you use voice input, we
+  use the expo-speech-recognition library which relies on native platform
+  speech recognition APIs:
 
-- Character Voice Audio (GENERATED): Character voice responses are generated
+  * iOS: Your voice audio is processed by Apple's SFSpeechRecognizer service,
+    which may transmit audio to Apple's servers for speech-to-text conversion
+
+  * Android: Your voice audio is processed by Google's Speech Recognition
+    service, which may transmit audio to Google's servers for speech-to-text
+    conversion
+
+  * On-Device Option: Both platforms support on-device recognition (if
+    language packs are downloaded), which processes audio locally without
+    server transmission
+
+  * Aimi Backend: Your voice audio is NEVER sent to Aimi's backend servers.
+    Only the resulting text message (after conversion by Apple/Google) is
+    transmitted to our backend for AI processing
+
+- Character Voice Audio (Generated): Character voice responses are generated
   using ElevenLabs voice synthesis service (via our backend). Only the text
   content of character responses is sent to ElevenLabs; your personal voice
-  data is never shared.
+  data is never shared with ElevenLabs
 
 - Audio Cache: Generated character voice audio files are cached locally on
   your device for up to 7 days for performance optimization
 
-🔒 PRIVACY NOTICE: Your voice recordings are NEVER uploaded to our servers or
-any third party. Voice input is processed entirely on your device using
-system-native speech recognition. Only the text output is transmitted.
+🔒 PRIVACY NOTICE: Your voice audio is processed by Apple (iOS) or Google
+(Android) speech recognition services, not by Aimi. Your voice recordings are
+NEVER uploaded to Aimi's servers. Only the text output from Apple/Google's
+speech recognition is transmitted to our backend for AI conversation
+processing.
 
 1.5 USAGE & ANALYTICS DATA
 - Number of chat messages, voice synthesis, and portrait generation requests
@@ -90,10 +120,11 @@ system-native speech recognition. Only the text output is transmitted.
 
 2.1 CORE SERVICE DELIVERY
 - AI Conversations: Process your text messages (including those converted from
-  voice input on your device) to generate contextually appropriate AI character
-  responses
-- Voice Features: Your device converts speech to text locally; we then
-  synthesize character voice responses using ElevenLabs
+  voice input by Apple/Google speech recognition) to generate contextually
+  appropriate AI character responses
+- Voice Features: Apple (iOS) or Google (Android) converts your speech to
+  text; we then receive the text and synthesize character voice responses
+  using ElevenLabs
 - Character Generation: Create AI-generated portrait images
 - Story Experiences: Track progress in interactive visual novel stories
 
@@ -118,42 +149,160 @@ system-native speech recognition. Only the text output is transmitted.
 3. THIRD-PARTY SERVICES & DATA SHARING
 ================================================================================
 
+We integrate with the following third-party services. Your data may be shared
+with these services as described below:
+
 3.1 GOOGLE AUTHENTICATION
 Purpose: User authentication and account creation
-Data Shared: Google ID token, email, name, profile picture
+Data Shared: Google ID token, email address, Google User ID (sub claim)
 SDK: @react-native-google-signin/google-signin
 Privacy Policy: https://policies.google.com/privacy
 
-3.2 REVENUECAT (Subscription Management)
+3.2 APPLE SIGN IN
+Purpose: User authentication and account creation
+Data Shared: Apple ID token, email address (or private relay email), Apple
+User ID (sub claim)
+Privacy Policy: https://www.apple.com/legal/privacy/
+
+3.3 APPLE SPEECH RECOGNITION (iOS)
+Purpose: Convert user voice input to text
+Data Shared: Voice audio recordings (when using cloud-based recognition)
+SDK: expo-speech-recognition (uses iOS SFSpeechRecognizer API)
+On-Device Option: Available if language packs are downloaded
+Data Flow: Voice audio goes directly from your device to Apple's servers (not
+through Aimi's backend)
+Privacy Policy: https://www.apple.com/legal/privacy/
+
+3.4 GOOGLE SPEECH RECOGNITION (Android)
+Purpose: Convert user voice input to text
+Data Shared: Voice audio recordings (when using cloud-based recognition)
+SDK: expo-speech-recognition (uses Android SpeechRecognizer API)
+On-Device Option: Available via Android System Intelligence if language packs
+are downloaded
+Data Flow: Voice audio goes directly from your device to Google's servers (not
+through Aimi's backend)
+Privacy Policy: https://policies.google.com/privacy
+
+3.5 REVENUECAT (Subscription Management)
 Purpose: Manage in-app purchases and subscriptions
-Data Shared: User ID, subscription status, purchase events
+Data Shared: User ID, subscription status, purchase events, platform
+information
 SDK: react-native-purchases (v9.5.4)
 Privacy Policy: https://www.revenuecat.com/privacy
 
-3.3 AI LANGUAGE MODEL PROVIDER (via Backend)
-Purpose: Generate AI character responses
-Data Shared: Character profiles, user messages, conversation context
-Processing: Proxied through our backend server
+3.6 AI LANGUAGE MODEL PROVIDER (OpenAI)
+Purpose: Generate AI character responses to your messages
+Provider: OpenAI API (accessed via our backend server)
 
-3.4 ELEVENLABS (Character Voice Synthesis)
-Purpose: Generate realistic AI character voice audio (NOT for processing user
-         voice input)
-Data Shared: Character response text content to be synthesized, voice ID
-Data NOT Shared: Your personal voice recordings are never sent to ElevenLabs
-Processing: Proxied through our backend server
+Data Shared with OpenAI:
+- Your chat messages (text only, converted from voice by Apple/Google if you
+  use voice input)
+- Character profiles and settings you've created
+- Conversation context and history for continuity
+- User preferences (language, tone, communication style)
+
+Important Notes:
+- Your voice audio is NOT shared: If you use voice input, your audio is
+  processed by Apple (iOS) or Google (Android) and converted to text before
+  reaching our servers. Only the text is sent to OpenAI
+
+- Data retention by OpenAI: OpenAI may temporarily retain API request data
+  (including your messages and conversation context) for up to 30 days for
+  abuse detection and security purposes. Under certain legal requirements
+  (such as court orders), this data may be retained for longer periods to
+  comply with legal obligations
+
+- Not used for AI training: According to OpenAI's API terms, data sent via
+  API is not used to train their models unless you explicitly opt-in
+
+Processing: All requests are proxied through our backend server; your personal
+API credentials are never exposed
+Privacy Policy: https://openai.com/privacy/
+
+3.7 ELEVENLABS (Character Voice Synthesis)
+Purpose: Convert AI-generated character response text into realistic voice
+audio
+
+Data Shared with ElevenLabs: AI-generated character response text (created by
+the LLM) and voice ID selection for the character
+
+Important Clarifications:
+- NOT for user voice: ElevenLabs is used to create the character's voice, not
+  to process your voice input
+
+- Your voice is never sent to ElevenLabs: When you use voice input, it's
+  processed by Apple/Google and converted to text. ElevenLabs only receives
+  the AI's text response to synthesize the character's voice reply
+
+- Text-to-Speech only: The flow is: AI generates text response → ElevenLabs
+  converts that text to character voice audio → audio plays to you
+
+Processing: All requests are proxied through our backend server
 Privacy Policy: https://elevenlabs.io/privacy
 
-3.5 BACKEND API SERVER
+3.8 BACKEND API SERVER
 Location: United States
-Purpose: Service coordination, authentication, usage tracking
-Data Stored: Account info, conversation history, usage statistics
+Purpose: Service coordination, authentication, usage tracking, AI processing
+Data Stored: Account info, conversation history, usage statistics,
+subscription status
 Security: HTTPS/TLS encryption, bearer token authentication
 
-3.6 DATA WE DO NOT SHARE
+3.9 DATA WE DO NOT SHARE
 - We do not sell your personal information to third parties
-- We do not share conversation content with advertisers
-- We do not use your data for targeted advertising
-- We do not share data except as necessary to provide services
+- We do not share your data with advertisers or marketing companies
+- We do not use your data for targeted advertising or marketing purposes
+- We do not share data with third parties except as disclosed above (OpenAI
+  for AI responses, ElevenLabs for voice synthesis, Apple/Google for
+  authentication and speech recognition, and RevenueCat for subscription
+  management)
+- We do not share your conversation content with any parties other than those
+  necessary to provide the core AI conversation functionality (OpenAI)
+- We may disclose limited data when required by law or to protect safety, as
+  described in Section 3.10 below
+
+3.10 SAFETY, ABUSE, AND LEGAL COMPLIANCE
+We are committed to maintaining a safe platform and complying with applicable
+laws. We may access, review, preserve, or disclose your account information or
+conversation content if we believe in good faith that it is reasonably
+necessary to:
+
+- Investigate and prevent fraud, security incidents, or abuse: This includes
+  spam, harassment, threats of violence, child exploitation, or attempts to
+  bypass usage limits or payment systems
+
+- Protect safety: Respond to reports or credible risks of child exploitation,
+  self-harm, suicide, or threats to harm others
+
+- Comply with legal obligations: Respond to applicable laws, regulations,
+  legal processes, or enforceable government requests (such as court orders,
+  subpoenas, or law enforcement requests with proper legal authority)
+
+- Enforce our policies: Investigate violations of our Terms of Use and take
+  appropriate action
+
+- Address technical issues: Detect and resolve security vulnerabilities or
+  technical problems that affect service integrity
+
+Important Clarifications:
+- We do not proactively monitor your private conversations: We do not read
+  your chats for content moderation or other purposes under normal
+  circumstances
+
+- Review only when necessary: We only access or review content when there is a
+  specific legal requirement, credible safety concern, verified abuse report,
+  or technical issue that requires investigation
+
+- Not for advertising: We do not sell conversation data or share it for
+  advertising, marketing, or commercial purposes
+
+- User notification when possible: When legally permitted and practically
+  feasible, we will notify affected users before disclosing their information
+  to third parties, unless doing so would compromise an ongoing investigation,
+  violate legal requirements, or create a risk of harm
+
+If you believe your account was accessed in error or you have questions about
+a disclosure, please contact us at thomas.huang.ai@gmail.com with "Legal
+Inquiry" in the subject line.
 
 ================================================================================
 4. DATA STORAGE & SECURITY
@@ -178,13 +327,31 @@ Security: HTTPS/TLS encryption, bearer token authentication
 - Regular Updates: Security patches and dependency updates
 
 ⚠️ SECURITY NOTICE: While we use industry-standard security measures, no
-electronic storage or transmission method is 100% secure.
+electronic storage or transmission method is 100% secure. We cannot guarantee
+absolute security of your information.
 
 4.4 DATA RETENTION
-- Active Accounts: Data retained while account is active
-- Deleted Accounts: Personal data deleted within 30 days
-- Audio Cache: Auto-deleted after 7 days
-- Backups: May persist up to 90 days for disaster recovery
+- Active Accounts: We retain your data while your account is active so we can
+  provide the service to you
+
+- Account Deletion: You can request account deletion through the in-app
+  feature or by contacting us. After we verify your deletion request, we will
+  delete your personal account data (including email, user profile,
+  conversation history linked to that account, and subscription status) within
+  30 days, except where we are legally required to retain certain records
+
+- Audio Cache: Locally cached voice files are automatically deleted after 7
+  days
+
+- Backups: System backups may continue to store copies of deleted data for up
+  to 90 days for disaster recovery purposes, after which those copies are
+  automatically removed
+
+- Abuse & Safety Records: We may retain certain de-identified records (such as
+  fraud detection logs, abuse reports, or safety-related data) that are no
+  longer linked to your identity. These records cannot be used to personally
+  identify you and are maintained solely for platform safety and legal
+  compliance
 
 ================================================================================
 5. DEVICE PERMISSIONS
@@ -192,21 +359,24 @@ electronic storage or transmission method is 100% secure.
 
 5.1 IOS PERMISSIONS
 - Microphone Access: "Aimi needs access to your microphone for voice input"
-  Purpose: Enable voice-to-text input feature (PROCESSED LOCALLY ON YOUR DEVICE)
+  Purpose: Enable voice-to-text input feature (processed by Apple's speech
+  recognition)
 
 - Speech Recognition: "Aimi needs access to speech recognition to convert
   your voice to text"
-  Purpose: Process voice input and convert to text messages (ON-DEVICE)
+  Purpose: Process voice input and convert to text messages
 
 5.2 ANDROID PERMISSIONS
-- RECORD_AUDIO: Record audio from microphone for voice input (LOCAL PROCESSING)
+- RECORD_AUDIO: Record audio from microphone for voice input (processed by
+  Google's speech recognition)
 - INTERNET: Connect to backend services
 - com.android.vending.BILLING: Process in-app purchases
 - READ_EXTERNAL_STORAGE / WRITE_EXTERNAL_STORAGE: Import/export data
 - MODIFY_AUDIO_SETTINGS: Adjust audio playback
 - VIBRATE: Provide haptic feedback
 
-Note: You can revoke permissions anytime through device settings.
+Note: You can revoke permissions anytime through device settings, but this may
+limit app functionality.
 
 ================================================================================
 6. YOUR RIGHTS & CHOICES
@@ -220,12 +390,14 @@ Note: You can revoke permissions anytime through device settings.
 - Edit Profile: Update preferences and settings anytime
 - Delete Characters: Remove individual characters and conversations
 - Clear Conversations: Clear chat history for specific or all characters
-- Delete Account: Permanently remove account and associated data
+- Delete Account: You can request permanent account deletion through the
+  in-app "Delete Account" flow or by emailing us. Once we verify your request,
+  we will begin the deletion process as described in Section 4.4 (Data
+  Retention)
 
 6.3 PRIVACY CONTROLS
 - Voice Input: Enable/disable voice input feature
 - Auto-Play Voice: Control automatic voice response playback
-- Data Sharing: Use guest mode instead of Google sign-in
 
 6.4 MARKETING COMMUNICATIONS
 - We do not send marketing emails or promotional materials
@@ -244,13 +416,10 @@ If you are a California resident, you have the right to:
 
 ⚠️ AGE RESTRICTION: Aimi is intended solely for users aged 18 and older.
 
-We do not knowingly collect personal information from anyone under 18. The app
-carries a 17+ (Mature) rating on the Apple App Store and Google Play Store,
-as this is the highest age rating available on these platforms. Despite the
-store rating, our terms require users to be 18 years or older.
-
-The app may contain mature content and interactive AI characters that are not
-appropriate for minors.
+We do not knowingly collect personal information from anyone under 18. By
+using this app, you confirm that you are at least 18 years of age. The app may
+contain mature content and interactive AI characters that are not appropriate
+for minors.
 
 If you are a parent/guardian and believe your child provided us with personal
 information, contact us immediately at thomas.huang.ai@gmail.com. We will
@@ -289,7 +458,9 @@ We encourage periodic review of this policy to stay informed.
 ================================================================================
 
 In the event of a data breach affecting your personal information, we will:
-- Notify affected users within 72 hours of discovering the breach
+- Notify affected users as soon as reasonably possible and in accordance with
+  applicable data breach notification laws (typically within 72 hours of
+  discovering the breach where required by law)
 - Provide details about what information was compromised
 - Explain steps we are taking to address the breach
 - Recommend actions you can take to protect yourself
@@ -303,11 +474,15 @@ For questions, concerns, or requests regarding this Privacy Policy:
 
 Developer: Chi-Lun Huang
 Email: thomas.huang.ai@gmail.com
-Response Time: We aim to respond within 5 business days
+Response Time: We typically respond to inquiries within 5 business days,
+though response times may vary depending on the complexity of your request
 
 FOR SPECIFIC REQUESTS:
 - Data Access/Export: Use in-app "Export Data" feature or email us
-- Data Deletion: Use in-app "Delete Account" feature or email us
+- Data Deletion: Request account deletion through the in-app "Delete Account"
+  feature or email us with the subject line "Delete Account". After we verify
+  your request, we will begin deleting your data as described in this Privacy
+  Policy
 - Privacy Concerns: Email with "Privacy Concern" in subject line
 - Security Issues: Email with "Security" in subject for priority handling
 
