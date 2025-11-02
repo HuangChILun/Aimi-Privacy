@@ -27,14 +27,18 @@
   }
 
   // ========== Configuration ==========
+  // Enhanced mobile optimization for performance
+  const isMobile = window.innerWidth <= 768;
+  const isSmallMobile = window.innerWidth <= 480;
+
   const CONFIG = {
-    particleCount: window.innerWidth < 768 ? 50 : 100,
-    particleSize: 3,
+    particleCount: isSmallMobile ? 30 : (isMobile ? 50 : 100),
+    particleSize: isMobile ? 2.5 : 3,
     particleColor: 0xffc9d9, // Rose pink
-    moveSpeed: 0.2,
-    mouseInfluence: 50,
-    connectionDistance: 150,
-    connectionOpacity: 0.2,
+    moveSpeed: isMobile ? 0.15 : 0.2,
+    mouseInfluence: isMobile ? 30 : 50,
+    connectionDistance: isMobile ? 100 : 150,
+    connectionOpacity: isMobile ? 0.15 : 0.2,
   };
 
   // ========== Scene Setup ==========
@@ -62,10 +66,12 @@
     renderer = new THREE.WebGLRenderer({
       canvas: canvas,
       alpha: true,
-      antialias: true,
+      antialias: !isMobile, // Disable antialiasing on mobile for better performance
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // Reduce pixel ratio on mobile for better performance
+    const maxPixelRatio = isMobile ? 1.5 : 2;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
 
     // Create particles
     createParticles();

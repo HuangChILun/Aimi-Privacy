@@ -106,8 +106,75 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Full-Screen Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+        <div class="mobile-menu-glow"></div>
+        <div class="mobile-menu-content">
+            <!-- Close Button -->
+            <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- Menu Items -->
+            <nav class="mobile-nav">
+                <a href="#features" class="mobile-nav-link" data-i18n="nav.features">
+                    <span class="mobile-nav-icon">✨</span>
+                    <span class="mobile-nav-text">Features</span>
+                </a>
+                <a href="#screenshots" class="mobile-nav-link">
+                    <span class="mobile-nav-icon">🖼️</span>
+                    <span class="mobile-nav-text">Gallery</span>
+                </a>
+                <a href="index.html" class="mobile-nav-link" data-i18n="nav.privacy">
+                    <span class="mobile-nav-icon">🔒</span>
+                    <span class="mobile-nav-text">Privacy</span>
+                </a>
+                <a href="terms-of-use.html" class="mobile-nav-link">
+                    <span class="mobile-nav-icon">📜</span>
+                    <span class="mobile-nav-text">Terms</span>
+                </a>
+            </nav>
+
+            <!-- Language Selector in Mobile Menu -->
+            <div class="mobile-lang-selector">
+                <p class="mobile-lang-label" data-i18n="mobile.menu.language">Language / 言語</p>
+                <div class="mobile-lang-options">
+                    <button class="mobile-lang-option active" data-lang="en">
+                        <span class="mobile-lang-flag">🌐</span>
+                        <span class="mobile-lang-name">English</span>
+                    </button>
+                    <button class="mobile-lang-option" data-lang="zh-TW">
+                        <span class="mobile-lang-flag">🌐</span>
+                        <span class="mobile-lang-name">繁體中文</span>
+                    </button>
+                    <button class="mobile-lang-option" data-lang="ja">
+                        <span class="mobile-lang-flag">🌐</span>
+                        <span class="mobile-lang-name">日本語</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Decorative Sakura Petals -->
+            <div class="mobile-menu-decoration">
+                <span class="decoration-petal">🌸</span>
+                <span class="decoration-petal">🌸</span>
+                <span class="decoration-petal">🌸</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero-section">
@@ -150,40 +217,44 @@
                     </div>
                 </div>
 
-                <!-- Email Signup Form -->
-                <div class="email-form-container">
-                    <form id="email-signup-form" class="email-form">
-                        <div class="form-glow"></div>
-                        <input
-                            type="email"
-                            id="email-input"
-                            data-i18n-placeholder="hero.form.placeholder"
-                            placeholder="Enter your email"
-                            required
-                            autocomplete="email"
-                            class="email-input"
-                        >
-                        <button type="submit" class="submit-btn">
-                            <span class="btn-text" data-i18n="hero.form.button">Get Early Access</span>
-                            <span class="btn-icon">→</span>
+                <!-- App Download Section -->
+                <div class="app-download-container">
+                    <p class="download-notice">
+                        Available on iOS & Android 🌸
+                    </p>
+                    <div class="store-buttons">
+                        <!-- App Store Button -->
+                        <button class="store-btn app-store-btn" id="app-store-btn" type="button" aria-label="Download on App Store - Coming Soon">
+                            <div class="store-btn-glow"></div>
+                            <div class="store-btn-content">
+                                <svg class="store-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                                </svg>
+                                <div class="store-btn-text">
+                                    <span class="store-btn-label">Download on the</span>
+                                    <span class="store-btn-name">App Store</span>
+                                </div>
+                            </div>
                         </button>
-                    </form>
-                    <p class="form-notice" data-i18n="hero.form.notice">
-                        Join the waitlist to get notified when Aimi launches! 🌸
+
+                        <!-- Google Play Button -->
+                        <button class="store-btn google-play-btn" id="google-play-btn" type="button" aria-label="Get it on Google Play - Coming Soon">
+                            <div class="store-btn-glow"></div>
+                            <div class="store-btn-content">
+                                <svg class="store-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12 3.84 21.85c-.5-.24-.84-.76-.84-1.35zm10.84-7.19l5.31 5.31c.38.38.38 1 0 1.38l-5.31 5.31L3.21 19.58l10.63-6.27zm7.1-5.07L18.54 10l-3.09-1.82 3.09-1.82 2.4 1.41c.66.39.66 1.26 0 1.65zM3.21 4.42l10.63 5.72-5.31-5.31c-.38-.38-.38-1 0-1.38l5.31-5.31L3.21 4.42z"/>
+                                </svg>
+                                <div class="store-btn-text">
+                                    <span class="store-btn-label">GET IT ON</span>
+                                    <span class="store-btn-name">Google Play</span>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <p class="store-notice">
+                        Coming Soon! Tap to stay updated 🚀
                     </p>
                 </div>
-
-                <!-- App Store Badges (Optional - uncomment when ready) -->
-                <!--
-                <div class="store-badges">
-                    <a href="#" class="store-badge">
-                        <img src="assets/images/app-store-badge.svg" alt="Download on App Store">
-                    </a>
-                    <a href="#" class="store-badge">
-                        <img src="assets/images/google-play-badge.svg" alt="Get it on Google Play">
-                    </a>
-                </div>
-                -->
             </div>
 
             <!-- Hero Visual Element -->
@@ -650,24 +721,24 @@
                     <span data-i18n="cta.title.line1">Ready to meet a world that</span><br><span class="title-gradient" data-i18n="cta.title.highlight">remembers you</span><span data-i18n="cta.title.line2">?</span>
                 </h2>
                 <p class="cta-subtitle">
-                    <span data-i18n="cta.subtitle.before">Join the waitlist and be among the first to experience this </span><strong data-i18n="cta.subtitle.highlight">never-before-seen</strong><span data-i18n="cta.subtitle.after"> game</span>
+                    <span data-i18n="cta.subtitle.before">Download the app or stay updated on new features and updates</span>
                 </p>
 
-                <!-- Email Form (Duplicate) -->
-                <div class="email-form-container">
+                <!-- Email Form (Secondary Option) -->
+                <div class="email-form-container secondary-form">
                     <form id="email-signup-form-2" class="email-form">
                         <div class="form-glow"></div>
                         <input
                             type="email"
                             id="email-input-2"
-                            data-i18n-placeholder="hero.form.placeholder"
-                            placeholder="Enter your email"
+                            data-i18n-placeholder="cta.form.placeholder"
+                            placeholder="Enter your email for updates"
                             required
                             autocomplete="email"
                             class="email-input"
                         >
                         <button type="submit" class="submit-btn">
-                            <span class="btn-text" data-i18n="hero.form.button">Get Early Access</span>
+                            <span class="btn-text" data-i18n="cta.form.button">Stay Updated</span>
                             <span class="btn-icon">→</span>
                         </button>
                     </form>

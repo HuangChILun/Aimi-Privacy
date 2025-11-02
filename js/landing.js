@@ -461,6 +461,177 @@
     console.log('🌐 Language selector initialized');
   }
 
+  /**
+   * Setup mobile menu overlay
+   */
+  function setupMobileMenu() {
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    const menuClose = document.getElementById('mobile-menu-close');
+    const menuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    const mobileLangOptions = document.querySelectorAll('.mobile-lang-option');
+
+    if (!menuToggle || !menuClose || !menuOverlay) {
+      return;
+    }
+
+    // Open mobile menu
+    function openMobileMenu() {
+      menuOverlay.classList.add('active');
+      menuToggle.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent body scroll
+      menuToggle.setAttribute('aria-expanded', 'true');
+
+      // Focus close button for accessibility
+      setTimeout(() => menuClose.focus(), 300);
+    }
+
+    // Close mobile menu
+    function closeMobileMenu() {
+      menuOverlay.classList.remove('active');
+      menuToggle.classList.remove('active');
+      document.body.style.overflow = ''; // Restore body scroll
+      menuToggle.setAttribute('aria-expanded', 'false');
+
+      // Return focus to toggle button
+      menuToggle.focus();
+    }
+
+    // Toggle menu
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = menuOverlay.classList.contains('active');
+
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+
+    // Close button
+    menuClose.addEventListener('click', () => {
+      closeMobileMenu();
+    });
+
+    // Close when clicking on overlay background
+    menuOverlay.addEventListener('click', (e) => {
+      if (e.target === menuOverlay) {
+        closeMobileMenu();
+      }
+    });
+
+    // Close when clicking nav links
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeMobileMenu();
+      });
+    });
+
+    // Mobile language selector
+    mobileLangOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const lang = option.getAttribute('data-lang');
+
+        // Remove active class from all options
+        mobileLangOptions.forEach(opt => opt.classList.remove('active'));
+
+        // Add active class to clicked option
+        option.classList.add('active');
+
+        // Trigger language change (integrate with existing i18n system)
+        if (window.i18n && typeof window.i18n.setLanguage === 'function') {
+          window.i18n.setLanguage(lang);
+        }
+
+        console.log(`📱 Mobile menu language changed to: ${lang}`);
+      });
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
+        closeMobileMenu();
+      }
+    });
+
+    // Close menu on window resize (if screen becomes larger)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && menuOverlay.classList.contains('active')) {
+        closeMobileMenu();
+      }
+    });
+
+    console.log('📱 Mobile menu initialized');
+  }
+
+  /**
+   * Setup app store download buttons
+   */
+  function setupAppStoreButtons() {
+    const appStoreBtn = document.getElementById('app-store-btn');
+    const googlePlayBtn = document.getElementById('google-play-btn');
+    const ctaSection = document.querySelector('.cta-section');
+    const emailInput = document.getElementById('email-input-2');
+
+    if (!appStoreBtn || !googlePlayBtn) {
+      return;
+    }
+
+    // Smooth scroll to CTA section with email form
+    function scrollToCTA() {
+      if (ctaSection) {
+        ctaSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+
+        // Focus email input after scroll
+        setTimeout(() => {
+          if (emailInput) {
+            emailInput.focus();
+          }
+        }, 800);
+      }
+    }
+
+    // App Store button click
+    appStoreBtn.addEventListener('click', () => {
+      // Show toast notification
+      showToast('🍎 APP 即將在 App Store 推出！留下 email 我們會第一時間通知您 🌸', 'info');
+
+      // Scroll to email form
+      scrollToCTA();
+
+      // Analytics tracking (if available)
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'click', {
+          event_category: 'App Download',
+          event_label: 'iOS Coming Soon'
+        });
+      }
+    });
+
+    // Google Play button click
+    googlePlayBtn.addEventListener('click', () => {
+      // Show toast notification
+      showToast('🤖 APP 即將在 Google Play 推出！留下 email 我們會第一時間通知您 🌸', 'info');
+
+      // Scroll to email form
+      scrollToCTA();
+
+      // Analytics tracking (if available)
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'click', {
+          event_category: 'App Download',
+          event_label: 'Android Coming Soon'
+        });
+      }
+    });
+
+    console.log('📱 App store buttons initialized');
+  }
+
   // ========== Error Handling ==========
 
   window.addEventListener('error', (e) => {
@@ -489,6 +660,8 @@
     setupActiveNavLink();
     setupKeyboardNavigation();
     setupLanguageSelector();
+    setupMobileMenu();
+    setupAppStoreButtons();
 
     // Optional effects (can be disabled)
     if (!state.isReducedMotion) {

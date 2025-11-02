@@ -23,20 +23,24 @@
   const ctx = canvas.getContext('2d');
 
   // ========== Configuration ==========
+  // Enhanced mobile optimization for performance
+  const isMobile = window.innerWidth <= 768;
+  const isSmallMobile = window.innerWidth <= 480;
+
   const CONFIG = {
-    petalCount: window.innerWidth < 768 ? 15 : 30,
+    petalCount: isSmallMobile ? 8 : (isMobile ? 15 : 30),
     colors: [
       'rgba(255, 229, 236, 0.8)', // Sakura pink
       'rgba(255, 201, 217, 0.8)', // Rose pink
       'rgba(255, 179, 198, 0.8)', // Deep rose
       'rgba(240, 230, 255, 0.7)', // Lavender
     ],
-    minSize: 8,
-    maxSize: 16,
+    minSize: isMobile ? 6 : 8,
+    maxSize: isMobile ? 12 : 16,
     minSpeed: 1,
-    maxSpeed: 3,
+    maxSpeed: isMobile ? 2.5 : 3,
     windSpeed: 0.5,
-    rotationSpeed: 0.02,
+    rotationSpeed: isMobile ? 0.015 : 0.02,
   };
 
   // ========== Sakura Petal Class ==========
